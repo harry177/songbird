@@ -82,6 +82,9 @@ html, body {
 }
 
 .white__plate {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   width: 100px;
   height: inherit;
   background: white;
@@ -89,9 +92,17 @@ html, body {
 }
 
 .welcome__right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 50%;
   height: 100%;
   border: black 1px solid;
+}
+
+.sound__button {
+    width: 50px;
+  height: 30px;
 }
 
 .footer {

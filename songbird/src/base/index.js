@@ -2,13 +2,19 @@ import "./index.html";
 import "./index.css";
 
 
+let video = document.querySelector(".looney__video");
+let sbutton = document.querySelector(".sound__button");
 
-let signalWrapper = document.createElement('a');
-signalWrapper.className = "wrapper";
-signalWrapper.href = "./game.html";
+sbutton.addEventListener('click',function () {
+    video.muted = false;
+})
 
 
-let signal = document.createElement("div");
-signal.className = "bird";
+
+
+
+
+
+
 
 
