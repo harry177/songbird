@@ -1,16 +1,102 @@
-body {
-    width: 100%;
-    height: 100%;
-    background-color: red;
-}
-
-.bird {
-    width: 200px;
-    height: 100px;
-    background-color: white;
+html, body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .wrapper {
-    width: 200px;
-    height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1200px;
+  max-width: 100%;
+  height: inherit;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  width: inherit;
+  height: 10%;
+  background: orange;
+}
+
+.logo__block {
+  height: 100%;
+  width: 200px;
+  border: black 1px solid;
+}
+
+.nav__block {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  width: 700px;
+  border: black 1px solid;
+}
+
+.nav__button {
+  width: 50px;
+  height: 30px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: inherit;
+  height: 80%;
+}
+
+.welcome {
+  display: flex;
+  width: inherit;
+  height: 500px;
+}
+
+.welcome__left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: inherit;
+  border: black 1px solid;
+}
+
+.looney__video {
+  width: 600px;
+  height: 500px;
+  z-index: 0;
+  position: absolute;
+  object-fit: cover;
+}
+
+.looney__display {
+  width: 500px;
+  height: 500px;
+  z-index: 10;
+  position: relative;
+}
+
+.white__plate {
+  width: 100px;
+  height: inherit;
+  background: white;
+  z-index: 5;
+}
+
+.welcome__right {
+  width: 50%;
+  height: 100%;
+  border: black 1px solid;
+}
+
+.footer {
+  width: inherit;
+  height: 10%;
+  background: orange;
+  bottom: 0px;
 }
