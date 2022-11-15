@@ -25,7 +25,7 @@ let conf = {
     output: {
         path: path.resolve (__dirname, "dist"),
         clean: true,
-        filename: "[name].[contenthash].js"
+        filename: "[name].js"
     },
 
     plugins: [
@@ -92,12 +92,33 @@ let conf = {
                           }
                         }
                       ],
-                type: "asset/resource",
+                
                 generator: {
-                    filename: "assets/images/[name][ext]"
+                    filename: "./assets/images/[name][ext]"
                 }
 
-            }
+            },
+            {
+                test: /\.mp3$/,
+                use: [
+                    {
+                        loader: "file-loader",
+                        options: {
+                            outputPath: "assets/sounds",
+                            name: "[path][name].mp3",
+                            clean: true,
+                            contenthash: false
+                        }
+                    }
+                ],
+
+              /*
+
+                generator: {
+                    filename: "./assets/sounds/[name][ext]"
+                } */
+                
+            },
            
         ]
     }
