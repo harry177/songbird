@@ -113,7 +113,6 @@ let conf = {
                 ],
 
               /*
-
                 generator: {
                     filename: "./assets/sounds/[name][ext]"
                 } */
