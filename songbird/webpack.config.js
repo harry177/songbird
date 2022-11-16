@@ -25,7 +25,8 @@ let conf = {
     output: {
         path: path.resolve (__dirname, "dist"),
         clean: true,
-        filename: "[name].js"
+        filename: "[name].js",
+        assetModuleFilename: "assets/images[name][ext]"
     },
 
     plugins: [
@@ -66,6 +67,10 @@ let conf = {
                     "style-loader",
                     "css-loader"
                 ]
+            },
+            {
+                test: /\.(jpe?g|png|webp|gif|svg)$/i,
+                type: "asset/resource"
             },
             {
                 test: /\.(jpe?g|png|webp|gif|svg)$/i,
@@ -118,6 +123,7 @@ let conf = {
                 } */
                 
             },
+            
            
         ]
     }

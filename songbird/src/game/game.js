@@ -1,58 +1,75 @@
 import "./game.html";
 import "./game.css";
 
-/*import "./../../assets/sounds/daffy-duck-hoo-hoo.mp3";
+import "./../../assets/sounds/daffy-duck-hoo-hoo.mp3";
 import "./../../assets/sounds/porky-pig-all-folks.mp3";
 import "./../../assets/sounds/bugs-bunny.mp3";
 import "./../../assets/sounds/taz-tasmanian-devil.mp3";
 import "./../../assets/sounds/road-runner.mp3";
-import "./../../assets/sounds/tweety-canary.mp3"; */
+import "./../../assets/sounds/tweety-canary.mp3";
 
 
+import "./../../assets/icons/pause.svg";
+import "./../../assets/icons/play.svg";
+
+import "./../../assets/images/question.jpg";
+
+import "./../../assets/images/bugs-bunny.jpg";
+import "./../../assets/images/daffy-duck.jpg";
+import "./../../assets/images/porky-pig.jpg";
+import "./../../assets/images/road-runner.jpg";
+import "./../../assets/images/taz.jpg";
+import "./../../assets/images/tweety.jpg";
 
 
 const playList = [
     {      
       name: "Утка Даффи",
-      title: "Duffy Duck",
-      src: "assets/sounds/assets/sounds/daffy-duck-hoo-hoo.mp3",
+      title: "Daffy Duck",
+      src: "./../../assets/sounds/assets/sounds/daffy-duck-hoo-hoo.mp3",
       duration: "00:04",
-      picture: "./../../assets/images/duffy-duck.jpg"
+      picture: "url(./../../assets/images/daffy-duck.jpg)",
+      description: "oooooooo"
     },  
     {
       name: "Поросенок Порки",
       title: "Porky Pig",
-      src: "./../../assets/sounds/porky-pig-all-folks.mp3",
+      src: "./../../assets/sounds/assets/sounds/porky-pig-all-folks.mp3",
       duration: "00:03",
-      picture: "./../../assets/images/porky-pig.jpg"
+      picture: "url(./../../assets/images/porky-pig.jpg)",
+      description: "iiiiiiiiii"
     },
     {
       name: "Багз Банни",
       title: "Bugs Bunny",
-      src: "./../../assets/sounds/bugs-bunny.mp3",
+      src: "./../../assets/sounds/assets/sounds/bugs-bunny.mp3",
       duration: "00:03",
-      picture: "./../../assets/images/bugs-bunny.jpg"
+      picture: "url(./../../assets/images/bugs-bunny.jpg)",
+      description: "99999999"
     },
     {
       name: "Таз - тасманский дьявол",
       title: "Taz - tasmanian devil",
-      src: "./../../assets/sounds/taz-tasmanian-devil.mp3",
+      src: "./../../assets/sounds/assets/sounds/taz-tasmanian-devil.mp3",
       duration: "00:05",
-      picture: "./../../assets/images/taz.jpg"
+      picture: "url(./../../assets/images/taz.jpg)",
+      description: "zzzzzzzz"
     },
     {
       name: "Бегун",
       title: "Road Runner",
-      src: "./../../assets/sounds/road-runner.mp3",
+      src: "./../../assets/sounds/assets/sounds/road-runner.mp3",
       duration: "00:01",
-      picture: "./../../assets/images/road-runner.jpg"
+      picture: "url(./../../assets/images/road-runner.jpg)",
+      description: "uuuuuuuuuu"
     },
     {
       name: "Канарейка Твити",
       title: "Tweety",
-      src: "./../../assets/sounds/tweety-canary.mp3",
+      src: "./../../assets/sounds/assets/sounds/tweety-canary.mp3",
       duration: "00:03",
-      picture: "./../../assets/images/tweety.jpg"
+      picture: "url(./../../assets/images/tweety.jpg)",
+      description: "eeeeeeeeeee"
     }
 
   ]
@@ -65,6 +82,17 @@ const playList = [
   const heroesContainer = document.querySelector(".answers");
   const activeSong = heroesContainer.childNodes;
 
+  const heroName = document.querySelector(".hero__name");
+  const heroPicture = document.querySelector(".hero__picture");
+
+  const heroText = document.querySelector(".description__footer");
+
+  const nextQuestion = document.querySelector(".next__question");
+
+  const descriptionPicture = document.querySelector(".description__header__picture");
+
+
+
   
   
 
@@ -73,6 +101,18 @@ const playList = [
     playerButton.classList.toggle("button__pause");
   })
 
+
+  // Mixed playlist
+
+  let mixedPlaylist = Array.from(playList);
+
+  function shuffle() {
+    mixedPlaylist.sort(() => Math.random() - 0.5);
+  };
+
+  window.onload = shuffle();
+
+  console.log(mixedPlaylist);
 
   // Player
 
@@ -83,7 +123,7 @@ const playList = [
   const audio = new Audio();
 
   function playAudio() {
-    audio.src = playList[playNum].src;
+    audio.src = mixedPlaylist[playNum].src;
     audio.currentTime = 0;
 
     if (isPlay === false) {
@@ -100,12 +140,18 @@ const playList = [
   playerButton.addEventListener("click", playAudio);
 
 
-  // Mixed playlist
-
-  let mixedPlaylist;
+  
   
 
   // Quiz
+
+  let counter = 0;
+
+  let step = 6;
+
+  let scoreContainer = document.querySelector(".results__block__score");
+
+  scoreContainer.textContent = counter;
 
   function content() {
     playList.forEach(el => {
@@ -122,11 +168,51 @@ const playList = [
 
 
   heroesContainer.addEventListener("click", function(el) {
-    if (el.target.classList.contains("variant")) {
-      el.target.classList.toggle("variant__onclick");
+    if (el.target.classList.contains("variant") && el.target.textContent === mixedPlaylist[playNum].title) {
+      el.target.classList.add("variant__true");
+      heroText.textContent = mixedPlaylist[playNum].description;
+    
+      counter += step;
+      scoreContainer.textContent = counter;
+    };
+    if (el.target.classList.contains("variant") && el.target.textContent !== mixedPlaylist[playNum].title) {
+      el.target.classList.add("variant__false");
+    
+      step--;
+      scoreContainer.textContent = counter;
+    };
+    if (el.target.textContent === mixedPlaylist[playNum].title) {
+      heroName.textContent = el.target.textContent;
+      heroPicture.style.backgroundImage = mixedPlaylist[playNum].picture;
+      descriptionPicture.style.backgroundImage = mixedPlaylist[playNum].picture;
+      
+      
+        heroesContainer.childNodes.forEach(item => {
+          item.classList.remove("variant__false");
+        })
+
+        step = 6;
+        
+      
     }
+    console.log(mixedPlaylist)
   })
 
+
+  nextQuestion.addEventListener("click", () => {
+    heroPicture.style.backgroundImage = "url(./../../assets/images/question.jpg)";
+    descriptionPicture.style.backgroundImage = "url(./../../assets/images/question.jpg)";
+    heroesContainer.childNodes.forEach(item => {
+      item.classList.remove("variant__false");
+    })
+    mixedPlaylist.shift(playNum);
+    heroName.textContent = "******";
+  })
+
+
+  // Score
+
+  
 
 
   

@@ -14,8 +14,14 @@
       <a href="./index.html">
         <button class="nav__button">Main</button>
       </a>
+      <a href="./results.html">
+        <button class="nav__button">Gallery</button>
+      </a>
       </div>
-      <div class="results__block">Count:</div>
+      <div class="results__block">
+        <div class="results__block__count">Count:</div>
+        <div class="results__block__score"></div>
+      </div>
     </header>
     <main class="main">
       <section class="questions"></section>
@@ -30,13 +36,16 @@
               <div class="player__bar__time"></div>
               <div class="player__bar__sound"></div>
             </div>
+            <button class="next__question">Next question</button>
           </div>
         </div>
       </section>
       <section class="game">
         <div class="answers"></div>
         <div class="description">
-          <div class="description__header"></div>
+          <div class="description__header">
+            <div class="description__header__picture"></div>
+          </div>
           <div class="description__footer"></div>
         </div>
       </section>
