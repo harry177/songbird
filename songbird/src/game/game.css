@@ -150,6 +150,41 @@ html, body {
   mask-image: url("./../../assets/icons/pause.svg");
 }
 
+.seek__slider,
+.volume__slider {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: 5px;
+  background: black;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  width: 100%;
+}
+
+.seek__slider::-webkit-slider-thumb,
+.volume__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: orange;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.seek__slider:hover,
+.volume__slider:hover {
+  opacity: 1.0;
+}
+
+i.fa-volume-down,
+i.fa-volume-up {
+  padding: 10px;
+}
+
 .next__question {
   width: 120px;
   height: 40px;

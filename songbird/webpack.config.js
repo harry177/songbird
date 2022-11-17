@@ -69,11 +69,8 @@ let conf = {
                 ]
             },
             {
-                test: /\.(jpe?g|png|webp|gif|svg)$/i,
-                type: "asset/resource"
-            },
-            {
-                test: /\.(jpe?g|png|webp|gif|svg)$/i,
+                test: /\.(jpe?g|png|webp|gif)$/i,
+                type: "asset/resource",
                 use: [
                         {
                           loader: "image-webpack-loader",
@@ -104,27 +101,27 @@ let conf = {
 
             },
             {
+                test: /\.svg$/i,
+                type: "asset/resource",
+                use: "image-webpack-loader",
+                generator: {
+                    filename: "./assets/icons/[name][ext]"
+                }
+            },
+            {
                 test: /\.mp3$/,
                 use: [
                     {
                         loader: "file-loader",
                         options: {
                             outputPath: "assets/sounds",
-                            name: "[path][name].mp3",
+                            name: "[name].mp3",
                             clean: true,
                             contenthash: false
                         }
                     }
                 ],
-
-              /*
-                generator: {
-                    filename: "./assets/sounds/[name][ext]"
-                } */
-                
             },
-            
-           
         ]
     }
 };

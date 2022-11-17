@@ -31,10 +31,15 @@
           <div class="hero__name"></div>
           <div class="player">
             <button class="player__button button__play"></button>
-            <div class="player__bar">
-              <div class="player__bar__line"></div>
-              <div class="player__bar__time"></div>
-              <div class="player__bar__sound"></div>
+            <div class="slider__container">
+              <div class="current-time">00:00</div>
+              <input type="range" min="1" max="100"value="0" class="seek__slider">
+              <div class="total-duration">00:00</div>
+            </div>
+            <div class="slider_container">
+              <i class="fa-volume-down"></i>
+              <input type="range" min="1" max="100" value="99" class="volume__slider">
+              <i class="fa-volume-up"></i>
             </div>
             <button class="next__question">Next question</button>
           </div>

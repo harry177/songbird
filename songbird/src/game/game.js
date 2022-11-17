@@ -26,49 +26,49 @@ const playList = [
     {      
       name: "Утка Даффи",
       title: "Daffy Duck",
-      src: "./../../assets/sounds/assets/sounds/daffy-duck-hoo-hoo.mp3",
+      src: "assets/sounds/daffy-duck-hoo-hoo.mp3",
       duration: "00:04",
-      picture: "url(./../../assets/images/daffy-duck.jpg)",
+      picture: "url(assets/images/daffy-duck.jpg)",
       description: "oooooooo"
     },  
     {
       name: "Поросенок Порки",
       title: "Porky Pig",
-      src: "./../../assets/sounds/assets/sounds/porky-pig-all-folks.mp3",
+      src: "assets/sounds/porky-pig-all-folks.mp3",
       duration: "00:03",
-      picture: "url(./../../assets/images/porky-pig.jpg)",
+      picture: "url(assets/images/porky-pig.jpg)",
       description: "iiiiiiiiii"
     },
     {
       name: "Багз Банни",
       title: "Bugs Bunny",
-      src: "./../../assets/sounds/assets/sounds/bugs-bunny.mp3",
+      src: "assets/sounds/bugs-bunny.mp3",
       duration: "00:03",
-      picture: "url(./../../assets/images/bugs-bunny.jpg)",
+      picture: "url(assets/images/bugs-bunny.jpg)",
       description: "99999999"
     },
     {
       name: "Таз - тасманский дьявол",
       title: "Taz - tasmanian devil",
-      src: "./../../assets/sounds/assets/sounds/taz-tasmanian-devil.mp3",
+      src: "assets/sounds/taz-tasmanian-devil.mp3",
       duration: "00:05",
-      picture: "url(./../../assets/images/taz.jpg)",
+      picture: "url(assets/images/taz.jpg)",
       description: "zzzzzzzz"
     },
     {
       name: "Бегун",
       title: "Road Runner",
-      src: "./../../assets/sounds/assets/sounds/road-runner.mp3",
+      src: "assets/sounds/road-runner.mp3",
       duration: "00:01",
-      picture: "url(./../../assets/images/road-runner.jpg)",
+      picture: "url(assets/images/road-runner.jpg)",
       description: "uuuuuuuuuu"
     },
     {
       name: "Канарейка Твити",
       title: "Tweety",
-      src: "./../../assets/sounds/assets/sounds/tweety-canary.mp3",
+      src: "assets/sounds/tweety-canary.mp3",
       duration: "00:03",
-      picture: "url(./../../assets/images/tweety.jpg)",
+      picture: "url(assets/images/tweety.jpg)",
       description: "eeeeeeeeeee"
     }
 
@@ -79,6 +79,12 @@ const playList = [
   const statusPlay = document.querySelector(".button__play");
   const statusPause = document.querySelector(".button__pause");
 
+  let seekSlider = document.querySelector(".seek__slider");
+  let curr_time = document.querySelector(".current-time");
+  let total_duration = document.querySelector(".total-duration");
+
+  let volumeSlider = document.querySelector(".volume__slider");
+
   const heroesContainer = document.querySelector(".answers");
   const activeSong = heroesContainer.childNodes;
 
@@ -88,6 +94,8 @@ const playList = [
   const heroText = document.querySelector(".description__footer");
 
   const nextQuestion = document.querySelector(".next__question");
+
+  nextQuestion.setAttribute("disabled", true);
 
   const descriptionPicture = document.querySelector(".description__header__picture");
 
@@ -112,13 +120,14 @@ const playList = [
 
   window.onload = shuffle();
 
-  console.log(mixedPlaylist);
 
   // Player
 
   let isPlay = false;
 
   let playNum = 0;
+
+  let updateTimer;
 
   const audio = new Audio();
 
@@ -127,8 +136,13 @@ const playList = [
     audio.currentTime = 0;
 
     if (isPlay === false) {
+        clearInterval(updateTimer);
         audio.play();
         isPlay = true;
+        resetValues();
+        updateTimer = setInterval(seekUpdate, 1000);
+      
+    
       } else if (isPlay === true) {
         audio.pause();
         isPlay = false;
@@ -137,7 +151,61 @@ const playList = [
     console.log(audio.src);
   }
 
+
+ 
+
   playerButton.addEventListener("click", playAudio);
+
+
+  function resetValues() {
+    curr_time.textContent = "00:00";
+    total_duration.textContent = "00:00";
+    seekSlider.value = 0;
+  }
+
+  
+
+  seekSlider.onchange = function() {
+    audio.currentTime = audio.duration * (seekSlider.value / 100);
+  }
+
+  volumeSlider.onchange = function() {
+    audio.volume = volumeSlider.value / 100;
+  }
+
+  
+
+
+  function seekUpdate() {
+    let seekPosition = 0;
+   
+    // Check if the current track duration is a legible number
+    if (!isNaN(audio.duration)) {
+      seekPosition = audio.currentTime * (100 / audio.duration);
+      seekSlider.value = seekPosition;
+   
+      // Calculate the time left and the total duration
+      let currentMinutes = Math.floor(audio.currentTime / 60);
+      let currentSeconds = Math.floor(audio.currentTime - currentMinutes * 60);
+      let durationMinutes = Math.floor(audio.duration / 60);
+      let durationSeconds = Math.floor(audio.duration - durationMinutes * 60);
+   
+      // Add a zero to the single digit time values
+      if (currentSeconds < 10) { currentSeconds = "0" + currentSeconds; }
+      if (durationSeconds < 10) { durationSeconds = "0" + durationSeconds; }
+      if (currentMinutes < 10) { currentMinutes = "0" + currentMinutes; }
+      if (durationMinutes < 10) { durationMinutes = "0" + durationMinutes; }
+   
+      // Display the updated duration
+      curr_time.textContent = currentMinutes + ":" + currentSeconds;
+      total_duration.textContent = durationMinutes + ":" + durationSeconds;
+    }
+  }
+
+
+  
+
+ 
 
 
   
@@ -171,6 +239,7 @@ const playList = [
     if (el.target.classList.contains("variant") && el.target.textContent === mixedPlaylist[playNum].title) {
       el.target.classList.add("variant__true");
       heroText.textContent = mixedPlaylist[playNum].description;
+      nextQuestion.removeAttribute("disabled");
     
       counter += step;
       scoreContainer.textContent = counter;
@@ -195,18 +264,26 @@ const playList = [
         
       
     }
-    console.log(mixedPlaylist)
+    
   })
 
 
   nextQuestion.addEventListener("click", () => {
-    heroPicture.style.backgroundImage = "url(./../../assets/images/question.jpg)";
-    descriptionPicture.style.backgroundImage = "url(./../../assets/images/question.jpg)";
+    heroPicture.style.backgroundImage = "url(assets/images/question.jpg)";
+    descriptionPicture.style.backgroundImage = "url(assets/images/question.jpg)";
     heroesContainer.childNodes.forEach(item => {
       item.classList.remove("variant__false");
     })
     mixedPlaylist.shift(playNum);
+    console.log(mixedPlaylist)
     heroName.textContent = "******";
+    playerButton.classList.remove("button__pause");
+    playerButton.classList.add("button__play");
+    isPlay = false;
+    nextQuestion.setAttribute("disabled", true);
+    clearInterval(updateTimer);
+    resetValues();
+    audio.pause();
   })
 
 
