@@ -1,5 +1,11 @@
 import "./game.html";
 import "./game.css";
+import {playList} from "./../heroes.js";
+
+
+
+import "./../../assets/sounds/error.mp3";
+import "./../../assets/sounds/success.mp3";
 
 import "./../../assets/sounds/daffy-duck-hoo-hoo.mp3";
 import "./../../assets/sounds/porky-pig-all-folks.mp3";
@@ -22,57 +28,47 @@ import "./../../assets/images/taz.jpg";
 import "./../../assets/images/tweety.jpg";
 
 
-const playList = [
-    {      
-      name: "Утка Даффи",
-      title: "Daffy Duck",
-      src: "assets/sounds/daffy-duck-hoo-hoo.mp3",
-      duration: "00:04",
-      picture: "url(assets/images/daffy-duck.jpg)",
-      description: "oooooooo"
-    },  
-    {
-      name: "Поросенок Порки",
-      title: "Porky Pig",
-      src: "assets/sounds/porky-pig-all-folks.mp3",
-      duration: "00:03",
-      picture: "url(assets/images/porky-pig.jpg)",
-      description: "iiiiiiiiii"
-    },
-    {
-      name: "Багз Банни",
-      title: "Bugs Bunny",
-      src: "assets/sounds/bugs-bunny.mp3",
-      duration: "00:03",
-      picture: "url(assets/images/bugs-bunny.jpg)",
-      description: "99999999"
-    },
-    {
-      name: "Таз - тасманский дьявол",
-      title: "Taz - tasmanian devil",
-      src: "assets/sounds/taz-tasmanian-devil.mp3",
-      duration: "00:05",
-      picture: "url(assets/images/taz.jpg)",
-      description: "zzzzzzzz"
-    },
-    {
-      name: "Бегун",
-      title: "Road Runner",
-      src: "assets/sounds/road-runner.mp3",
-      duration: "00:01",
-      picture: "url(assets/images/road-runner.jpg)",
-      description: "uuuuuuuuuu"
-    },
-    {
-      name: "Канарейка Твити",
-      title: "Tweety",
-      src: "assets/sounds/tweety-canary.mp3",
-      duration: "00:03",
-      picture: "url(assets/images/tweety.jpg)",
-      description: "eeeeeeeeeee"
-    }
+const soundReaction = [
+  {
+    name: "успех",
+    title: "success",
+    src: "assets/sounds/success.mp3"
+  },
+  {
+    name: "ошибка",
+    title: "error",
+    src: "assets/sounds/error.mp3",
+  }
+]
 
-  ]
+
+
+
+  let shadowBody = document.querySelector(".shadow__body");
+
+  shadowBody.addEventListener('click', function() {
+    shadowBody.classList.remove('show__shadow');
+    resultsDesk.classList.remove('show__results');
+  });
+
+  let resultsDesk = document.querySelector(".results__desk");
+
+  resultsDesk.addEventListener('click', function() {
+    shadowBody.classList.remove('show__shadow');
+    resultsDesk.classList.remove('show__results');
+  });
+
+  let resultsList = document.querySelector(".results__list");
+
+  resultsList.textContent = null;
+
+  let resultsButton = document.querySelector(".results__button");
+
+  resultsButton.addEventListener('click', function() {
+    resultsDesk.classList.add('show__results');
+    shadowBody.classList.add('show__shadow');
+    showResults();
+  })
 
 
   const playerButton = document.querySelector(".player__button");
@@ -98,6 +94,8 @@ const playList = [
   nextQuestion.setAttribute("disabled", true);
 
   const descriptionPicture = document.querySelector(".description__header__picture");
+
+  const effect = new Audio();
 
 
 
@@ -213,6 +211,9 @@ const playList = [
 
   // Quiz
 
+  let resultBeginning = "Результатов пока нет.";
+  let resultEnding = "Сыграйте!";
+
   let counter = 0;
 
   let step = 6;
@@ -234,18 +235,38 @@ const playList = [
 
   const variant = document.querySelector(".variant");
 
+  
 
   heroesContainer.addEventListener("click", function(el) {
     if (el.target.classList.contains("variant") && el.target.textContent === mixedPlaylist[playNum].title) {
       el.target.classList.add("variant__true");
+      effect.src = soundReaction[0].src;
+      effect.play();
+      audio.pause();
+      audio.currentTime = 0;
       heroText.textContent = mixedPlaylist[playNum].description;
       nextQuestion.removeAttribute("disabled");
+
+     
     
       counter += step;
       scoreContainer.textContent = counter;
+
+      if (counter === 36) {
+        resultBeginning = `Поздравляем! Вы набрали максимальное количество баллов - ${counter}!`;
+        resultEnding = "Мультики - ваше призвание:)";
+      } else {
+        resultBeginning = `Вы дошли до конца! Ваш счет - ${counter} баллов!`;
+        resultEnding = "Не желаете попробавать снова?";
+      }
     };
+
     if (el.target.classList.contains("variant") && el.target.textContent !== mixedPlaylist[playNum].title) {
       el.target.classList.add("variant__false");
+
+      effect.src = soundReaction[1].src;
+      effect.play();
+      
     
       step--;
       scoreContainer.textContent = counter;
@@ -287,7 +308,21 @@ const playList = [
   })
 
 
-  // Score
+  // Saving results 
+/*
+
+  function saveResults() {
+    localStorage.setItem(resultBeginning, resultEnding);
+  } */
+  
+  
+  // Showing results
+
+function showResults() {
+  
+  resultsList.textContent = `${resultBeginning} ${resultEnding}`;
+  
+}
 
   
 

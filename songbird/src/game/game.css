@@ -5,13 +5,48 @@ html, body {
   margin: 0;
   }
 
+.shadow__body {
+  width: 100%;
+  height: 100%;
+  top: -100%;
+  z-index: 50;
+  background: black;
+  opacity: 0.5;
+  position: absolute;
+}
+
+.show__shadow {
+  top: 0px;
+}
+
+.results__desk {
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  background-color: white;
+  z-index: 100;
+  border-radius: 20px;
+  transition: ease-in-out 0.5s;
+  top: -300px;
+  left: 40%;
+}
+
+.show__results {
+  top: 200px;
+}
+
+.results__list {
+  width: inherit;
+  height: inherit;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 1200px;
   max-width: 100%;
-  height: inherit;
+  height: 100%;
   margin: 0 auto;
 }
 
@@ -76,10 +111,19 @@ html, body {
 
 .questions {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   width: inherit;
   height: 10%;
+  border: black 1px solid;
+}
+
+.stage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 16.66%;
+  height: 100%;
   border: black 1px solid;
 }
 
@@ -122,7 +166,7 @@ html, body {
 
 .player {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
   height: 60%;
@@ -185,16 +229,11 @@ i.fa-volume-up {
   padding: 10px;
 }
 
-.next__question {
-  width: 120px;
-  height: 40px;
-}
-
 .game {
   display: flex;
   justify-content: space-between;
   width: inherit;
-  height: 60%;
+  height: 55%;
   border: black 1px solid;
 }
 
@@ -258,6 +297,11 @@ i.fa-volume-up {
   width: 100%;
   height: 40%;
   border: black 1px solid;
+}
+
+.next__question {
+  width: 1200px;
+  height: 40px;
 }
 
 .footer {

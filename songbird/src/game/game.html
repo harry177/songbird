@@ -7,6 +7,10 @@
     <title>Document</title>
 </head>
 <body>
+  <div class="shadow__body"></div>
+  <div class="results__desk">
+    <div class="results__list"></div>
+  </div>
   <div class="wrapper">
     <header class="header">
       <div class="logo__block"></div>
@@ -17,6 +21,7 @@
       <a href="./results.html">
         <button class="nav__button">Gallery</button>
       </a>
+      <button class="results__button">Results</button>
       </div>
       <div class="results__block">
         <div class="results__block__count">Count:</div>
@@ -24,7 +29,14 @@
       </div>
     </header>
     <main class="main">
-      <section class="questions"></section>
+      <section class="questions">
+        <div class="stage stage__1">Дисней</div>
+        <div class="stage stage__2">Симпсоны</div>
+        <div class="stage stage__3">Гриффины</div>
+        <div class="stage stage__4">Рик и Морти</div>
+        <div class="stage stage__5">Южный Парк</div>
+        <div class="stage stage__6">Луни Тьюнс</div>
+      </section>
       <section class="current__question">
         <div class="hero__picture"></div>
         <div class="hero__guess">
@@ -41,7 +53,7 @@
               <input type="range" min="1" max="100" value="99" class="volume__slider">
               <i class="fa-volume-up"></i>
             </div>
-            <button class="next__question">Next question</button>
+            
           </div>
         </div>
       </section>
@@ -54,6 +66,7 @@
           <div class="description__footer"></div>
         </div>
       </section>
+      <button class="next__question">Next question</button>
     </main>
     <footer class="footer"></footer>
   </div>
