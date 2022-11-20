@@ -109,13 +109,13 @@ let conf = {
                 }
             },
             {
-                test: /\.mp3$/,
+                test: /\.(mp3|wav)$/,
                 use: [
                     {
                         loader: "file-loader",
                         options: {
                             outputPath: "assets/sounds",
-                            name: "[name].mp3",
+                            name: "[name].[ext]",
                             clean: true,
                             contenthash: false
                         }

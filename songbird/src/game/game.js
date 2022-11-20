@@ -1,11 +1,18 @@
 import "./game.html";
 import "./game.css";
-import {playList} from "./../heroes.js";
+import {looneyTunes, disney, simpsons, rickMorty, familyGuy, southPark} from "./../heroes.js";
 
 
 
 import "./../../assets/sounds/error.mp3";
 import "./../../assets/sounds/success.mp3";
+
+import "./../../assets/icons/pause.svg";
+import "./../../assets/icons/play.svg";
+
+import "./../../assets/images/question.jpg";
+
+// Looney Tunes import
 
 import "./../../assets/sounds/daffy-duck-hoo-hoo.mp3";
 import "./../../assets/sounds/porky-pig-all-folks.mp3";
@@ -14,18 +21,93 @@ import "./../../assets/sounds/taz-tasmanian-devil.mp3";
 import "./../../assets/sounds/road-runner.mp3";
 import "./../../assets/sounds/tweety-canary.mp3";
 
-
-import "./../../assets/icons/pause.svg";
-import "./../../assets/icons/play.svg";
-
-import "./../../assets/images/question.jpg";
-
 import "./../../assets/images/bugs-bunny.jpg";
 import "./../../assets/images/daffy-duck.jpg";
 import "./../../assets/images/porky-pig.jpg";
 import "./../../assets/images/road-runner.jpg";
 import "./../../assets/images/taz.jpg";
 import "./../../assets/images/tweety.jpg";
+
+// Disney import
+
+import "./../../assets/sounds/mickey-mouse.mp3";
+import "./../../assets/sounds/goofy.mp3";
+import "./../../assets/sounds/scrooge-mcduck.mp3";
+import "./../../assets/sounds/pluto.mp3";
+import "./../../assets/sounds/minni-mouse.mp3";
+import "./../../assets/sounds/donald-duck.mp3";
+
+import "./../../assets/images/mickey-mouse.jpg";
+import "./../../assets/images/goofy.jpg";
+import "./../../assets/images/scrooge-mcduck.jpg";
+import "./../../assets/images/pluto.jpg";
+import "./../../assets/images/minni-mouse.jpg";
+import "./../../assets/images/donald-duck.jpg";
+
+// Simpsons import
+
+import "./../../assets/sounds/homer-simpson.mp3";
+import "./../../assets/sounds/barney.mp3";
+import "./../../assets/sounds/bart-simpson.mp3";
+import "./../../assets/sounds/ned-flanders.mp3";
+import "./../../assets/sounds/nelson.mp3";
+import "./../../assets/sounds/ralph.mp3";
+
+import "./../../assets/images/homer-simpson.jpg";
+import "./../../assets/images/barney.jpg";
+import "./../../assets/images/bart-simpson.jpg";
+import "./../../assets/images/ned-flanders.jpg";
+import "./../../assets/images/nelson.jpg";
+import "./../../assets/images/ralph.jpg";
+
+// Family Guy import
+
+import "./../../assets/sounds/peter-griffin.mp3";
+import "./../../assets/sounds/lois-griffin.mp3";
+import "./../../assets/sounds/stewie-griffin.mp3";
+import "./../../assets/sounds/brian.mp3";
+import "./../../assets/sounds/quagmire.mp3";
+import "./../../assets/sounds/meg-griffin.mp3";
+
+import "./../../assets/images/peter-griffin.jpg";
+import "./../../assets/images/lois-griffin.jpg";
+import "./../../assets/images/stewie-griffin.jpg";
+import "./../../assets/images/brian.jpg";
+import "./../../assets/images/quagmire.jpg";
+import "./../../assets/images/meg-griffin.jpg";
+
+// Rick and Morty import
+
+import "./../../assets/sounds/rick-sanchez.wav";
+import "./../../assets/sounds/morty.wav";
+import "./../../assets/sounds/summer.mp3";
+import "./../../assets/sounds/jerry.mp3";
+import "./../../assets/sounds/birdperson.mp3";
+import "./../../assets/sounds/mr-meeseeks.wav";
+
+import "./../../assets/images/rick-sanchez.jpg";
+import "./../../assets/images/morty.jpg";
+import "./../../assets/images/summer.jpg";
+import "./../../assets/images/jerry.jpg";
+import "./../../assets/images/birdperson.jpg";
+import "./../../assets/images/mr-meeseeks.jpg";
+
+// South Park import
+
+import "./../../assets/sounds/eric-cartman.mp3";
+import "./../../assets/sounds/randy-marsh.mp3";
+import "./../../assets/sounds/jimmy.mp3";
+import "./../../assets/sounds/kyle-broflovski.mp3";
+import "./../../assets/sounds/mr-mackey.mp3";
+import "./../../assets/sounds/butters.mp3";
+
+import "./../../assets/images/eric-cartman.jpg";
+import "./../../assets/images/randy-marsh.jpg";
+import "./../../assets/images/jimmy.jpg";
+import "./../../assets/images/kyle-broflovski.jpg";
+import "./../../assets/images/mr-mackey.jpg";
+import "./../../assets/images/butters.jpg";
+
 
 
 const soundReaction = [
@@ -41,7 +123,7 @@ const soundReaction = [
   }
 ]
 
-
+const stages = [disney, simpsons, familyGuy, rickMorty, southPark, looneyTunes];
 
 
   let shadowBody = document.querySelector(".shadow__body");
@@ -97,6 +179,16 @@ const soundReaction = [
 
   const effect = new Audio();
 
+  let playList;
+
+  let stage;
+
+  stage = 0;
+
+  playList = stages[stage];
+
+  console.log(playList);
+
 
 
   
@@ -110,7 +202,9 @@ const soundReaction = [
 
   // Mixed playlist
 
-  let mixedPlaylist = Array.from(playList);
+  let mixedPlaylist;
+  
+  mixedPlaylist = Array.from(playList);
 
   function shuffle() {
     mixedPlaylist.sort(() => Math.random() - 0.5);
@@ -216,15 +310,18 @@ const soundReaction = [
 
   let counter = 0;
 
-  let step = 6;
+  let step = 5;
 
   let scoreContainer = document.querySelector(".results__block__score");
 
   scoreContainer.textContent = counter;
 
+  let singer;
+
   function content() {
+    heroesContainer.innerHTML = "";
     playList.forEach(el => {
-      const singer = document.createElement("div");
+      singer = document.createElement("button");
       singer.classList.add("variant");
       singer.textContent = `${el.title}`;
       heroesContainer.append(singer);
@@ -245,6 +342,9 @@ const soundReaction = [
       audio.pause();
       audio.currentTime = 0;
       heroText.textContent = mixedPlaylist[playNum].description;
+      heroesContainer.childNodes.forEach(childNodes => {
+        childNodes.setAttribute("disabled", true);
+    }) 
       nextQuestion.removeAttribute("disabled");
 
      
@@ -252,7 +352,7 @@ const soundReaction = [
       counter += step;
       scoreContainer.textContent = counter;
 
-      if (counter === 36) {
+      if (counter === 30) {
         resultBeginning = `Поздравляем! Вы набрали максимальное количество баллов - ${counter}!`;
         resultEnding = "Мультики - ваше призвание:)";
       } else {
@@ -266,7 +366,6 @@ const soundReaction = [
 
       effect.src = soundReaction[1].src;
       effect.play();
-      
     
       step--;
       scoreContainer.textContent = counter;
@@ -281,7 +380,7 @@ const soundReaction = [
           item.classList.remove("variant__false");
         })
 
-        step = 6;
+        step = 5;
         
       
     }
@@ -294,17 +393,30 @@ const soundReaction = [
     descriptionPicture.style.backgroundImage = "url(assets/images/question.jpg)";
     heroesContainer.childNodes.forEach(item => {
       item.classList.remove("variant__false");
+      item.classList.remove("variant__true");
     })
-    mixedPlaylist.shift(playNum);
-    console.log(mixedPlaylist)
+   // mixedPlaylist.shift(playNum);
+    stage += 1
+    playList = stages[stage];
+    mixedPlaylist = Array.from(playList);
+    shuffle();
+    playNum++;
+    content();
+    console.log(mixedPlaylist);
     heroName.textContent = "******";
     playerButton.classList.remove("button__pause");
     playerButton.classList.add("button__play");
     isPlay = false;
+    heroesContainer.childNodes.forEach(childNodes => {
+      childNodes.removeAttribute("disabled", true);
+  })
     nextQuestion.setAttribute("disabled", true);
     clearInterval(updateTimer);
     resetValues();
     audio.pause();
+    
+
+  
   })
 
 
