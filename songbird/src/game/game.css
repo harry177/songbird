@@ -20,6 +20,10 @@ html, body {
 }
 
 .results__desk {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 300px;
   height: 300px;
   position: absolute;
@@ -38,6 +42,12 @@ html, body {
 .results__list {
   width: inherit;
   height: inherit;
+}
+
+.play__again {
+  width: 100px;
+  height: 50px;
+  z-index: 1000;
 }
 
 .wrapper {
@@ -116,6 +126,10 @@ html, body {
   width: inherit;
   height: 10%;
   border: black 1px solid;
+}
+
+.questions__active {
+  background-color: violet;
 }
 
 .stage {
@@ -274,7 +288,7 @@ i.fa-volume-up {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 60%;
+  height: 70%;
   border: black 1px solid;
 }
 
@@ -291,11 +305,37 @@ i.fa-volume-up {
   background-position: center;
 }
 
+.description__header__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 60%;
+  height: 100%;
+}
+
+.description__header__content__name {
+  width: 100%;
+  height: 15%;
+  border: black 1px solid;
+}
+
+.description__header__content__nickname {
+  width: 100%;
+  height: 15%;
+  border: black 1px solid;
+}
+
+.description__header__content__player {
+  width: 100%;
+  height: 70%;
+  border: black 1px solid;
+}
+
 .description__footer {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 40%;
+  height: 30%;
   border: black 1px solid;
 }
 

@@ -123,7 +123,38 @@ const soundReaction = [
   }
 ]
 
-const stages = [disney, simpsons, familyGuy, rickMorty, southPark, looneyTunes];
+const stages = [
+  {
+    name: disney,
+    titleRu: "Дисней",
+    titleEn: "Disney"
+  },
+  {
+    name: simpsons,
+    titleRu: "Симпсоны",
+    titleEn: "Simpsons"
+  },
+  {
+    name: familyGuy,
+    titleRu: "Гриффины",
+    titleEn: "Family Guy"
+  },
+  {
+    name: rickMorty,
+    titleRu: "Рик и Морти",
+    titleEn: "Rick and Morty"
+  },
+  {
+    name: southPark,
+    titleRu: "Южный Парк",
+    titleEn: "South Park"
+  },
+  {
+    name: looneyTunes,
+    titleRu: "Луни Тьюнс",
+    titleEn: "Looney Tunes"
+  }
+];
 
 
   let shadowBody = document.querySelector(".shadow__body");
@@ -152,6 +183,9 @@ const stages = [disney, simpsons, familyGuy, rickMorty, southPark, looneyTunes];
     showResults();
   })
 
+  let questions = document.querySelector(".questions");
+
+  let questionsActive = document.querySelector(".questions__active")
 
   const playerButton = document.querySelector(".player__button");
   const statusPlay = document.querySelector(".button__play");
@@ -177,6 +211,34 @@ const stages = [disney, simpsons, familyGuy, rickMorty, southPark, looneyTunes];
 
   const descriptionPicture = document.querySelector(".description__header__picture");
 
+  const descriptionBlock = document.querySelector(".description");
+
+  descriptionBlock.innerHTML = "Послушайте плеер.<br>Выберете персонажа из списка."
+
+
+  let inputContent = `<div class="description__header"> \
+  <div class="description__header__picture"></div> \
+  <div class="description__header__content"> \
+    <div class="description__header__content__name"></div> \
+    <div class="description__header__content__nickname"></div> \
+    <div class="description__header__content__player"> \
+      <button class="player__button button__play"></button> \
+      <div class="slider__container"> \
+        <div class="current-time">00:00</div> \
+        <input type="range" min="1" max="100"value="0" class="seek__slider"> \
+        <div class="total-duration">00:00</div> \
+      </div> \
+      <div class="slider_container"> \
+        <i class="fa-volume-down"></i> \
+        <input type="range" min="1" max="100" value="99" class="volume__slider"> \
+        <i class="fa-volume-up"></i> \
+      </div> \
+    </div> \
+  </div>`;
+
+
+
+
   const effect = new Audio();
 
   let playList;
@@ -185,19 +247,15 @@ const stages = [disney, simpsons, familyGuy, rickMorty, southPark, looneyTunes];
 
   stage = 0;
 
-  playList = stages[stage];
+  playList = stages[stage].name;
 
-  console.log(playList);
-
-
-
-  
   
 
   playerButton.addEventListener("click", () => {
     playerButton.classList.toggle("button__play");
     playerButton.classList.toggle("button__pause");
   })
+
 
 
   // Mixed playlist
@@ -233,14 +291,14 @@ const stages = [disney, simpsons, familyGuy, rickMorty, southPark, looneyTunes];
         isPlay = true;
         resetValues();
         updateTimer = setInterval(seekUpdate, 1000);
+        playerButton.classList.remove("button__play");
+        playerButton.classList.add("button__pause");
       
     
       } else if (isPlay === true) {
         audio.pause();
         isPlay = false;
     }
-
-    console.log(audio.src);
   }
 
 
@@ -297,7 +355,21 @@ const stages = [disney, simpsons, familyGuy, rickMorty, southPark, looneyTunes];
 
   
 
- 
+  function contentQuestions() {
+    for (let i = 0; i < stages.length; i++) {
+      questions.children[i].textContent = stages[i].titleRu;
+
+      if (i === stage && questions.children[i-1] !== undefined) {
+        questions.children[i].style.backgroundColor = "violet";
+        questions.children[i-1].style.backgroundColor = "";
+      } else if (i === stage) {
+        questions.children[i].style.backgroundColor = "violet";
+      }
+    }
+
+  }
+
+  contentQuestions();
 
 
   
@@ -317,6 +389,8 @@ const stages = [disney, simpsons, familyGuy, rickMorty, southPark, looneyTunes];
   scoreContainer.textContent = counter;
 
   let singer;
+
+  heroName.textContent = "******";
 
   function content() {
     heroesContainer.innerHTML = "";
@@ -340,7 +414,11 @@ const stages = [disney, simpsons, familyGuy, rickMorty, southPark, looneyTunes];
       effect.src = soundReaction[0].src;
       effect.play();
       audio.pause();
+      playerButton.classList.remove("button__pause");
+      playerButton.classList.add("button__play");
+      isPlay = false;
       audio.currentTime = 0;
+      descriptionBlock.innerHTML = inputContent;
       heroText.textContent = mixedPlaylist[playNum].description;
       heroesContainer.childNodes.forEach(childNodes => {
         childNodes.setAttribute("disabled", true);
@@ -352,13 +430,9 @@ const stages = [disney, simpsons, familyGuy, rickMorty, southPark, looneyTunes];
       counter += step;
       scoreContainer.textContent = counter;
 
-      if (counter === 30) {
-        resultBeginning = `Поздравляем! Вы набрали максимальное количество баллов - ${counter}!`;
-        resultEnding = "Мультики - ваше призвание:)";
-      } else {
-        resultBeginning = `Вы дошли до конца! Ваш счет - ${counter} баллов!`;
-        resultEnding = "Не желаете попробавать снова?";
-      }
+
+
+      showResults();
     };
 
     if (el.target.classList.contains("variant") && el.target.textContent !== mixedPlaylist[playNum].title) {
@@ -366,6 +440,8 @@ const stages = [disney, simpsons, familyGuy, rickMorty, southPark, looneyTunes];
 
       effect.src = soundReaction[1].src;
       effect.play();
+
+      descriptionBlock.innerHTML = inputContent;
     
       step--;
       scoreContainer.textContent = counter;
@@ -376,9 +452,7 @@ const stages = [disney, simpsons, familyGuy, rickMorty, southPark, looneyTunes];
       descriptionPicture.style.backgroundImage = mixedPlaylist[playNum].picture;
       
       
-        heroesContainer.childNodes.forEach(item => {
-          item.classList.remove("variant__false");
-        })
+   
 
         step = 5;
         
@@ -396,26 +470,31 @@ const stages = [disney, simpsons, familyGuy, rickMorty, southPark, looneyTunes];
       item.classList.remove("variant__true");
     })
    // mixedPlaylist.shift(playNum);
+    audio.pause();
     stage += 1
-    playList = stages[stage];
+    playList = stages[stage].name;
     mixedPlaylist = Array.from(playList);
     shuffle();
     playNum++;
     content();
-    console.log(mixedPlaylist);
     heroName.textContent = "******";
+    
+    
+    isPlay = false;
+
     playerButton.classList.remove("button__pause");
     playerButton.classList.add("button__play");
-    isPlay = false;
+
     heroesContainer.childNodes.forEach(childNodes => {
       childNodes.removeAttribute("disabled", true);
   })
     nextQuestion.setAttribute("disabled", true);
     clearInterval(updateTimer);
     resetValues();
-    audio.pause();
+    contentQuestions();
     
-
+    
+    descriptionBlock.innerHTML = "Послушайте плеер.<br>Выберете персонажа из списка."
   
   })
 
@@ -431,10 +510,49 @@ const stages = [disney, simpsons, familyGuy, rickMorty, southPark, looneyTunes];
   // Showing results
 
 function showResults() {
+
+  if (counter === 30) {
+    resultBeginning = `Поздравляем! Вы набрали максимальное количество баллов - ${counter}!`;
+    resultEnding = "Мультики - ваше призвание:)";
+    resultsDesk.classList.add('show__results');
+    shadowBody.classList.add('show__shadow');
+  } else if (stage === 5 && heroesContainer.children[stage].disabled === true) {
+    resultBeginning = `Вы дошли до конца! Ваш счет - ${counter} баллов!`;
+    resultEnding = "Не желаете попробавать снова?";
+    resultsDesk.classList.add('show__results');
+    shadowBody.classList.add('show__shadow');
+  } else {
+    resultBeginning = `Ваш текущий счет - ${counter} баллов!`;
+    resultEnding = "Попробуйте дойти до конца :)";
+  }
   
   resultsList.textContent = `${resultBeginning} ${resultEnding}`;
   
 }
+
+
+const playAgain = document.querySelector(".play__again");
+
+function restartGame() {
+  resultsDesk.classList.remove('show__results');
+  shadowBody.classList.remove('show__shadow');
+  questions.children[stage].style.backgroundColor = "";
+  stage = 0;
+  counter = 0;
+  scoreContainer.textContent = counter;
+  playList = stages[stage].name;
+  mixedPlaylist = Array.from(playList);
+  heroPicture.style.backgroundImage = "url(assets/images/question.jpg)";
+  descriptionPicture.style.backgroundImage = "url(assets/images/question.jpg)";
+  shuffle();
+  contentQuestions();
+  content();
+  nextQuestion.setAttribute("disabled", true);
+  heroName.textContent = "******";
+  console.log(playList);
+}
+
+playAgain.addEventListener("click", restartGame);
 
   
 

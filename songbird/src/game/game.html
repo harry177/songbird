@@ -10,6 +10,7 @@
   <div class="shadow__body"></div>
   <div class="results__desk">
     <div class="results__list"></div>
+    <button class="play__again">Сыграть снова</button>
   </div>
   <div class="wrapper">
     <header class="header">
@@ -30,12 +31,12 @@
     </header>
     <main class="main">
       <section class="questions">
-        <div class="stage stage__1">Дисней</div>
-        <div class="stage stage__2">Симпсоны</div>
-        <div class="stage stage__3">Гриффины</div>
-        <div class="stage stage__4">Рик и Морти</div>
-        <div class="stage stage__5">Южный Парк</div>
-        <div class="stage stage__6">Луни Тьюнс</div>
+        <div class="stage"></div>
+        <div class="stage"></div>
+        <div class="stage"></div>
+        <div class="stage"></div>
+        <div class="stage"></div>
+        <div class="stage"></div>
       </section>
       <section class="current__question">
         <div class="hero__picture"></div>
@@ -62,6 +63,23 @@
         <div class="description">
           <div class="description__header">
             <div class="description__header__picture"></div>
+            <div class="description__header__content">
+              <div class="description__header__content__name"></div>
+              <div class="description__header__content__nickname"></div>
+              <div class="description__header__content__player">
+                <button class="player__button button__play"></button>
+                <div class="slider__container">
+                  <div class="current-time">00:00</div>
+                  <input type="range" min="1" max="100"value="0" class="seek__slider">
+                  <div class="total-duration">00:00</div>
+                </div>
+                <div class="slider_container">
+                  <i class="fa-volume-down"></i>
+                  <input type="range" min="1" max="100" value="99" class="volume__slider">
+                  <i class="fa-volume-up"></i>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="description__footer"></div>
         </div>
