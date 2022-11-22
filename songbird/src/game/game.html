@@ -19,9 +19,6 @@
       <a href="./index.html">
         <button class="nav__button">Main</button>
       </a>
-      <a href="./results.html">
-        <button class="nav__button">Gallery</button>
-      </a>
       <button class="results__button">Results</button>
       </div>
       <div class="results__block">
@@ -49,44 +46,55 @@
               <input type="range" min="1" max="100"value="0" class="seek__slider">
               <div class="total-duration">00:00</div>
             </div>
-            <div class="slider_container">
-              <i class="fa-volume-down"></i>
+            <div class="slider__container">
               <input type="range" min="1" max="100" value="99" class="volume__slider">
-              <i class="fa-volume-up"></i>
             </div>
-            
           </div>
         </div>
       </section>
       <section class="game">
         <div class="answers"></div>
         <div class="description">
+          <div class="description-cover">Послушайте плеер.
+            Выберете персонажа из списка. </div>
+            <div class="description__container">
           <div class="description__header">
             <div class="description__header__picture"></div>
             <div class="description__header__content">
               <div class="description__header__content__name"></div>
               <div class="description__header__content__nickname"></div>
               <div class="description__header__content__player">
-                <button class="player__button button__play"></button>
+                <button class="block__button button__play"></button>
                 <div class="slider__container">
-                  <div class="current-time">00:00</div>
-                  <input type="range" min="1" max="100"value="0" class="seek__slider">
-                  <div class="total-duration">00:00</div>
+                  <div class="current-time__block">00:00</div>
+                  <input type="range" min="1" max="100"value="0" class="seek__block__slider">
+                  <div class="total-duration__block">00:00</div>
                 </div>
                 <div class="slider_container">
                   <i class="fa-volume-down"></i>
-                  <input type="range" min="1" max="100" value="99" class="volume__slider">
+                  <input type="range" min="1" max="100" value="99" class="volume__slider__block">
                   <i class="fa-volume-up"></i>
                 </div>
               </div>
             </div>
-          </div>
+          </div> 
           <div class="description__footer"></div>
+            </div>
         </div>
       </section>
       <button class="next__question">Next question</button>
     </main>
-    <footer class="footer"></footer>
+    <footer class="footer">
+      <div class="footer__container">
+        <a href="https://rs.school/js/" class="link">
+          <div class="rss__logo"></div>
+        </a>
+        <div class="date__creation">Created by Artem Prygunov 2022</div>
+        <a href="https://github.com/harry177" class="link">
+          <div class="github__link"></div>
+        </a>
+      </div>
+    </footer>
   </div>
 </body>
 </html>

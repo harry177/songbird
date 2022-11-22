@@ -194,8 +194,12 @@ const stages = [
   let seekSlider = document.querySelector(".seek__slider");
   let curr_time = document.querySelector(".current-time");
   let total_duration = document.querySelector(".total-duration");
-
   let volumeSlider = document.querySelector(".volume__slider");
+
+  let seekBlockSlider = document.querySelector(".seek__block__slider");
+  let currBlockTime = document.querySelector(".current-time__block");
+  let totalBlockDuration = document.querySelector(".total-duration__block");
+  let volumeBlockSlider = document.querySelector(".volume__slider__block");
 
   const heroesContainer = document.querySelector(".answers");
   const activeSong = heroesContainer.childNodes;
@@ -203,17 +207,23 @@ const stages = [
   const heroName = document.querySelector(".hero__name");
   const heroPicture = document.querySelector(".hero__picture");
 
-  const heroText = document.querySelector(".description__footer");
+  const descriptionText = document.querySelector(".description__footer");
+
+
+  const descriptionCover = document.querySelector(".description-cover");
+  const focus = document.querySelector(".description-cover__hide");
+
+  
 
   const nextQuestion = document.querySelector(".next__question");
 
   nextQuestion.setAttribute("disabled", true);
 
-  const descriptionPicture = document.querySelector(".description__header__picture");
+  
 
   const descriptionBlock = document.querySelector(".description");
 
-  descriptionBlock.innerHTML = "Послушайте плеер.<br>Выберете персонажа из списка."
+ // descriptionBlock.innerHTML = "Послушайте плеер.<br>Выберете персонажа из списка."
 
 
   let inputContent = `<div class="description__header"> \
@@ -222,21 +232,25 @@ const stages = [
     <div class="description__header__content__name"></div> \
     <div class="description__header__content__nickname"></div> \
     <div class="description__header__content__player"> \
-      <button class="player__button button__play"></button> \
+      <button class="block__button button__play"></button> \
       <div class="slider__container"> \
-        <div class="current-time">00:00</div> \
-        <input type="range" min="1" max="100"value="0" class="seek__slider"> \
-        <div class="total-duration">00:00</div> \
+        <div class="current-time__block">00:00</div> \
+        <input type="range" min="1" max="100"value="0" class="seek__block__slider"> \
+        <div class="total-duration__block">00:00</div> \
       </div> \
-      <div class="slider_container"> \
+      <div class="slider__container"> \
         <i class="fa-volume-down"></i> \
-        <input type="range" min="1" max="100" value="99" class="volume__slider"> \
+        <input type="range" min="1" max="100" value="99" class="volume__slider__block"> \
         <i class="fa-volume-up"></i> \
       </div> \
     </div> \
-  </div>`;
+  </div> \
+  </div> \
+  <div class="description__footer"></div>`;
 
 
+
+  const blockButton = document.querySelector(".block__button");
 
 
   const effect = new Audio();
@@ -353,6 +367,8 @@ const stages = [
   }
 
 
+
+  // Managing stage menu
   
 
   function contentQuestions() {
@@ -418,8 +434,29 @@ const stages = [
       playerButton.classList.add("button__play");
       isPlay = false;
       audio.currentTime = 0;
-      descriptionBlock.innerHTML = inputContent;
-      heroText.textContent = mixedPlaylist[playNum].description;
+
+    //  descriptionBlock.innerHTML = inputContent;
+
+      const descriptionCover = document.querySelector(".description-cover");
+      descriptionCover.textContent = "";
+      descriptionCover.style.height = "0px";
+      
+
+      
+
+      const descriptionPicture = document.querySelector(".description__header__picture");
+      descriptionPicture.style.backgroundImage = mixedPlaylist[playNum].picture;
+      const descriptionName = document.querySelector(".description__header__content__name");
+      descriptionName.innerHTML = mixedPlaylist[playNum].name;
+      const descriptionNickname = document.querySelector(".description__header__content__nickname");
+      descriptionNickname.innerHTML = mixedPlaylist[playNum].title;
+      const descriptionText = document.querySelector(".description__footer");
+      descriptionText.innerHTML = mixedPlaylist[playNum].description;
+
+
+      blockAudio.src = mixedPlaylist[playNum].src;
+
+
       heroesContainer.childNodes.forEach(childNodes => {
         childNodes.setAttribute("disabled", true);
     }) 
@@ -430,8 +467,6 @@ const stages = [
       counter += step;
       scoreContainer.textContent = counter;
 
-
-
       showResults();
     };
 
@@ -440,8 +475,34 @@ const stages = [
 
       effect.src = soundReaction[1].src;
       effect.play();
+      const descriptionCover = document.querySelector(".description-cover");
+      const focus = document.querySelector(".description-cover__hide");
+    //  descriptionBlock.innerHTML = inputContent;
+      const descriptionPicture = document.querySelector(".description__header__picture");
+      const descriptionName = document.querySelector(".description__header__content__name");
+      const descriptionNickname = document.querySelector(".description__header__content__nickname");
+      const descriptionText = document.querySelector(".description__footer");
+      
+      for (let i = 0; i < mixedPlaylist.length; i++) {
+        if (el.target.textContent == mixedPlaylist[i].title) {
+          console.log (mixedPlaylist);
+          console.log (mixedPlaylist[i]);
+          console.log (mixedPlaylist.indexOf(i));
 
-      descriptionBlock.innerHTML = inputContent;
+          descriptionPicture.style.backgroundImage = mixedPlaylist[i].picture;
+          descriptionName.innerHTML = mixedPlaylist[i].name;
+          descriptionNickname.innerHTML = mixedPlaylist[i].title;
+          descriptionText.innerHTML = mixedPlaylist[i].description;
+          
+          blockAudio.src = mixedPlaylist[i].src;
+
+          const descriptionCover = document.querySelector(".description-cover");
+          descriptionCover.textContent = "";
+          descriptionCover.style.height = "0px";
+
+        }
+      } 
+      
     
       step--;
       scoreContainer.textContent = counter;
@@ -449,10 +510,7 @@ const stages = [
     if (el.target.textContent === mixedPlaylist[playNum].title) {
       heroName.textContent = el.target.textContent;
       heroPicture.style.backgroundImage = mixedPlaylist[playNum].picture;
-      descriptionPicture.style.backgroundImage = mixedPlaylist[playNum].picture;
       
-      
-   
 
         step = 5;
         
@@ -464,7 +522,6 @@ const stages = [
 
   nextQuestion.addEventListener("click", () => {
     heroPicture.style.backgroundImage = "url(assets/images/question.jpg)";
-    descriptionPicture.style.backgroundImage = "url(assets/images/question.jpg)";
     heroesContainer.childNodes.forEach(item => {
       item.classList.remove("variant__false");
       item.classList.remove("variant__true");
@@ -493,10 +550,107 @@ const stages = [
     resetValues();
     contentQuestions();
     
-    
-    descriptionBlock.innerHTML = "Послушайте плеер.<br>Выберете персонажа из списка."
+    descriptionCover.textContent = "Послушайте плеер.Выберете персонажа из списка.";
+    descriptionCover.style.height = "310px";
+  //  descriptionBlock.innerHTML = "Послушайте плеер.<br>Выберете персонажа из списка."
   
+  console.log(playList);
+  console.log(mixedPlaylist);
   })
+
+
+  // Description player
+
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  let isGo = false;
+
+  let renewTimer;
+
+  const blockAudio = new Audio();
+
+  function goAudio() {
+    
+    blockAudio.currentTime = 0;
+
+    if (isGo === false) {
+      clearInterval(renewTimer);
+
+      const descriptionPicture = document.querySelector(".description__header__picture");
+      for (let i = 0; i < mixedPlaylist.length; i++) {
+        if (descriptionPicture.style.backgroundImage === mixedPlaylist[i].picture) {
+          blockAudio.src = mixedPlaylist[i].src;
+          blockAudio.play();
+        }}
+
+      blockAudio.play();
+      isGo = true;
+      resetBlockValues();
+      renewTimer = setInterval(seekBlockUpdate, 1000);
+      blockButton.classList.remove("button__play");
+      blockButton.classList.add("button__pause");
+    
+  
+    } else if (isGo === true) {
+      blockAudio.pause();
+      isGo = false;
+  }
+
+  }
+
+  blockButton.addEventListener("click", () => {
+    blockButton.classList.toggle("button__play");
+    blockButton.classList.toggle("button__pause");
+  })
+
+  blockButton.addEventListener("click", goAudio);
+  
+
+
+  function resetBlockValues() {
+    currBlockTime.textContent = "00:00";
+    totalBlockDuration.textContent = "00:00";
+    seekBlockSlider.value = 0;
+  }
+
+  
+
+  seekBlockSlider.onchange = function() {
+    blockAudio.currentTime = blockAudio.duration * (seekBlockSlider.value / 100);
+  }
+
+  volumeBlockSlider.onchange = function() {
+    blockAudio.volume = volumeBlockSlider.value / 100;
+  }
+
+  
+
+
+  function seekBlockUpdate() {
+    let seekBlockPosition = 0;
+   
+    // Check if the current track duration is a legible number
+    if (!isNaN(blockAudio.duration)) {
+      seekBlockPosition = blockAudio.currentTime * (100 / blockAudio.duration);
+      seekBlockSlider.value = seekBlockPosition;
+   
+      // Calculate the time left and the total duration
+      let currentMinutes = Math.floor(blockAudio.currentTime / 60);
+      let currentSeconds = Math.floor(blockAudio.currentTime - currentMinutes * 60);
+      let durationMinutes = Math.floor(blockAudio.duration / 60);
+      let durationSeconds = Math.floor(blockAudio.duration - durationMinutes * 60);
+   
+      // Add a zero to the single digit time values
+      if (currentSeconds < 10) { currentSeconds = "0" + currentSeconds; }
+      if (durationSeconds < 10) { durationSeconds = "0" + durationSeconds; }
+      if (currentMinutes < 10) { currentMinutes = "0" + currentMinutes; }
+      if (durationMinutes < 10) { durationMinutes = "0" + durationMinutes; }
+   
+      // Display the updated duration
+      currBlockTime.textContent = currentMinutes + ":" + currentSeconds;
+      totalBlockDuration.textContent = durationMinutes + ":" + durationSeconds;
+    }
+  }
 
 
   // Saving results 
@@ -539,17 +693,21 @@ function restartGame() {
   questions.children[stage].style.backgroundColor = "";
   stage = 0;
   counter = 0;
+  playNum = 0;
   scoreContainer.textContent = counter;
   playList = stages[stage].name;
   mixedPlaylist = Array.from(playList);
   heroPicture.style.backgroundImage = "url(assets/images/question.jpg)";
-  descriptionPicture.style.backgroundImage = "url(assets/images/question.jpg)";
+ // descriptionPicture.style.backgroundImage = "url(assets/images/question.jpg)";
   shuffle();
   contentQuestions();
   content();
   nextQuestion.setAttribute("disabled", true);
   heroName.textContent = "******";
+  descriptionCover.textContent = "Послушайте плеер.Выберете персонажа из списка.";
+  descriptionCover.style.height = "310px";
   console.log(playList);
+  console.log(mixedPlaylist);
 }
 
 playAgain.addEventListener("click", restartGame);
