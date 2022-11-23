@@ -207,8 +207,6 @@ const stages = [
   const heroName = document.querySelector(".hero__name");
   const heroPicture = document.querySelector(".hero__picture");
 
-  const descriptionText = document.querySelector(".description__footer");
-
 
   const descriptionCover = document.querySelector(".description-cover");
   const focus = document.querySelector(".description-cover__hide");
@@ -222,6 +220,11 @@ const stages = [
   
 
   const descriptionBlock = document.querySelector(".description");
+
+  const descriptionPicture = document.querySelector(".description__header__picture");
+  const descriptionName = document.querySelector(".description__header__content__name");
+  const descriptionNickname = document.querySelector(".description__header__content__nickname");
+  const descriptionText = document.querySelector(".description__footer");
 
  // descriptionBlock.innerHTML = "Послушайте плеер.<br>Выберете персонажа из списка."
 
@@ -397,14 +400,16 @@ const stages = [
   let resultEnding = "Сыграйте!";
 
   let counter = 0;
-
   let step = 5;
 
   let scoreContainer = document.querySelector(".results__block__score");
-
   scoreContainer.textContent = counter;
 
+  let empty = document.querySelector(".variant__empty");
+
   let singer;
+
+  let finish = false;
 
   heroName.textContent = "******";
 
@@ -435,59 +440,59 @@ const stages = [
       isPlay = false;
       audio.currentTime = 0;
 
-    //  descriptionBlock.innerHTML = inputContent;
+      blockButton.classList.remove("button__pause");
+      blockButton.classList.add("button__play");
 
-      const descriptionCover = document.querySelector(".description-cover");
+      isGo = false;
+
+      
       descriptionCover.textContent = "";
       descriptionCover.style.height = "0px";
       
-
       
-
-      const descriptionPicture = document.querySelector(".description__header__picture");
       descriptionPicture.style.backgroundImage = mixedPlaylist[playNum].picture;
-      const descriptionName = document.querySelector(".description__header__content__name");
       descriptionName.innerHTML = mixedPlaylist[playNum].name;
-      const descriptionNickname = document.querySelector(".description__header__content__nickname");
       descriptionNickname.innerHTML = mixedPlaylist[playNum].title;
-      const descriptionText = document.querySelector(".description__footer");
       descriptionText.innerHTML = mixedPlaylist[playNum].description;
-
 
       blockAudio.src = mixedPlaylist[playNum].src;
 
 
-      heroesContainer.childNodes.forEach(childNodes => {
-        childNodes.setAttribute("disabled", true);
+      finish = heroesContainer.childNodes.forEach(item => {
+        item.classList.add(empty);
     }) 
+
+      
+
       nextQuestion.removeAttribute("disabled");
 
-     
     
       counter += step;
       scoreContainer.textContent = counter;
 
+
+      finish = true;
+
       showResults();
+
+      console.log(finish);
     };
 
-    if (el.target.classList.contains("variant") && el.target.textContent !== mixedPlaylist[playNum].title) {
+    if (el.target.classList.contains("variant") && el.target.textContent !== mixedPlaylist[playNum].title && el.target.classList.contains(empty) === false) {
       el.target.classList.add("variant__false");
 
       effect.src = soundReaction[1].src;
       effect.play();
-      const descriptionCover = document.querySelector(".description-cover");
-      const focus = document.querySelector(".description-cover__hide");
-    //  descriptionBlock.innerHTML = inputContent;
-      const descriptionPicture = document.querySelector(".description__header__picture");
-      const descriptionName = document.querySelector(".description__header__content__name");
-      const descriptionNickname = document.querySelector(".description__header__content__nickname");
-      const descriptionText = document.querySelector(".description__footer");
+      
       
       for (let i = 0; i < mixedPlaylist.length; i++) {
         if (el.target.textContent == mixedPlaylist[i].title) {
-          console.log (mixedPlaylist);
-          console.log (mixedPlaylist[i]);
-          console.log (mixedPlaylist.indexOf(i));
+
+          blockButton.classList.remove("button__pause");
+          blockButton.classList.add("button__play");
+
+          isGo = false;
+          
 
           descriptionPicture.style.backgroundImage = mixedPlaylist[i].picture;
           descriptionName.innerHTML = mixedPlaylist[i].name;
@@ -496,31 +501,69 @@ const stages = [
           
           blockAudio.src = mixedPlaylist[i].src;
 
-          const descriptionCover = document.querySelector(".description-cover");
+          descriptionCover.textContent = "";
+          descriptionCover.style.height = "0px";
+
+        }
+      } 
+
+      
+      
+      step--;
+      scoreContainer.textContent = counter;
+
+      el.target.classList.add(empty);
+
+    };
+
+
+    if (el.target.textContent === mixedPlaylist[playNum].title) {
+      heroName.textContent = el.target.textContent;
+      heroPicture.style.backgroundImage = mixedPlaylist[playNum].picture;
+      
+        step = 0;
+        
+    };
+
+
+    if (el.target.classList.contains("variant") && el.target.textContent !== mixedPlaylist[playNum].title && el.target.classList.contains(empty)) {
+      
+
+      for (let i = 0; i < mixedPlaylist.length; i++) {
+        if (el.target.textContent == mixedPlaylist[i].title) {
+          
+          blockButton.classList.remove("button__pause");
+          blockButton.classList.add("button__play");
+
+          isGo = false;
+
+          descriptionPicture.style.backgroundImage = mixedPlaylist[i].picture;
+          descriptionName.innerHTML = mixedPlaylist[i].name;
+          descriptionNickname.innerHTML = mixedPlaylist[i].title;
+          descriptionText.innerHTML = mixedPlaylist[i].description;
+          
+          blockAudio.src = mixedPlaylist[i].src;
+
           descriptionCover.textContent = "";
           descriptionCover.style.height = "0px";
 
         }
       } 
       
-    
-      step--;
-      scoreContainer.textContent = counter;
+        step += 0;
+        scoreContainer.textContent = counter;
     };
-    if (el.target.textContent === mixedPlaylist[playNum].title) {
-      heroName.textContent = el.target.textContent;
-      heroPicture.style.backgroundImage = mixedPlaylist[playNum].picture;
-      
-
-        step = 5;
-        
-      
-    }
     
   })
 
 
+  // Next question transition
+
+
   nextQuestion.addEventListener("click", () => {
+
+    finish = false;
+
     heroPicture.style.backgroundImage = "url(assets/images/question.jpg)";
     heroesContainer.childNodes.forEach(item => {
       item.classList.remove("variant__false");
@@ -539,8 +582,15 @@ const stages = [
     
     isPlay = false;
 
+    blockAudio.pause();
+    isGo = false;
+
     playerButton.classList.remove("button__pause");
     playerButton.classList.add("button__play");
+
+    blockButton.classList.remove("button__pause");
+    blockButton.classList.add("button__play");
+
 
     heroesContainer.childNodes.forEach(childNodes => {
       childNodes.removeAttribute("disabled", true);
@@ -554,8 +604,7 @@ const stages = [
     descriptionCover.style.height = "310px";
   //  descriptionBlock.innerHTML = "Послушайте плеер.<br>Выберете персонажа из списка."
   
-  console.log(playList);
-  console.log(mixedPlaylist);
+  step = 5;
   })
 
 
@@ -670,7 +719,7 @@ function showResults() {
     resultEnding = "Мультики - ваше призвание:)";
     resultsDesk.classList.add('show__results');
     shadowBody.classList.add('show__shadow');
-  } else if (stage === 5 && heroesContainer.children[stage].disabled === true) {
+  } else if (stage === 5 && finish === true) {
     resultBeginning = `Вы дошли до конца! Ваш счет - ${counter} баллов!`;
     resultEnding = "Не желаете попробавать снова?";
     resultsDesk.classList.add('show__results');
@@ -706,8 +755,8 @@ function restartGame() {
   heroName.textContent = "******";
   descriptionCover.textContent = "Послушайте плеер.Выберете персонажа из списка.";
   descriptionCover.style.height = "310px";
-  console.log(playList);
-  console.log(mixedPlaylist);
+  
+  step = 5;
 }
 
 playAgain.addEventListener("click", restartGame);
