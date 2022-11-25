@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "v_BadaBoom BB";
+  src: url("./../../assets/fonts/comix.ttf") format('ttf');
+}
+
+
 html, body {
   width: 100%;
   height: 100%;
@@ -93,6 +99,10 @@ html, body {
 }
 
 .welcome__right {
+  font-family: "v_BadaBoom BB";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
   display: flex;
   justify-content: center;
   align-items: center;

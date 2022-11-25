@@ -109,6 +109,14 @@ let conf = {
                 }
             },
             {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: "asset/resource",
+                use: "file-loader",
+                generator: {
+                    filename: "./assets/fonts/[name][ext]"
+                }
+            },
+            {
                 test: /\.(mp3|wav)$/,
                 use: [
                     {

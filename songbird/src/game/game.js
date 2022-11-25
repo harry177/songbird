@@ -217,6 +217,8 @@ const stages = [
 
   nextQuestion.setAttribute("disabled", true);
 
+  const pressNext = document.querySelector(".next__question__press");
+
   
 
   const descriptionBlock = document.querySelector(".description");
@@ -226,7 +228,7 @@ const stages = [
   const descriptionNickname = document.querySelector(".description__header__content__nickname");
   const descriptionText = document.querySelector(".description__footer");
 
- // descriptionBlock.innerHTML = "Послушайте плеер.<br>Выберете персонажа из списка."
+ 
 
 
   let inputContent = `<div class="description__header"> \
@@ -376,7 +378,7 @@ const stages = [
 
   function contentQuestions() {
     for (let i = 0; i < stages.length; i++) {
-      questions.children[i].textContent = stages[i].titleRu;
+      questions.children[i].textContent = stages[i].titleEn;
 
       if (i === stage && questions.children[i-1] !== undefined) {
         questions.children[i].style.backgroundColor = "violet";
@@ -408,6 +410,8 @@ const stages = [
   let empty = document.querySelector(".variant__empty");
 
   let singer;
+
+  let nextButtonToggle;
 
   let finish = false;
 
@@ -466,6 +470,11 @@ const stages = [
 
       nextQuestion.removeAttribute("disabled");
 
+       nextButtonToggle = setInterval(function() {
+        nextQuestion.classList.toggle("next__question__press");}, 500)
+        
+
+        console.log(nextQuestion.classList)
     
       counter += step;
       scoreContainer.textContent = counter;
@@ -562,6 +571,9 @@ const stages = [
 
   nextQuestion.addEventListener("click", () => {
 
+    
+    
+
     finish = false;
 
     heroPicture.style.backgroundImage = "url(assets/images/question.jpg)";
@@ -578,6 +590,8 @@ const stages = [
     playNum++;
     content();
     heroName.textContent = "******";
+
+    
     
     
     isPlay = false;
@@ -595,17 +609,25 @@ const stages = [
     heroesContainer.childNodes.forEach(childNodes => {
       childNodes.removeAttribute("disabled", true);
   })
+
+    
+
     nextQuestion.setAttribute("disabled", true);
+    
     clearInterval(updateTimer);
     resetValues();
     contentQuestions();
     
-    descriptionCover.textContent = "Послушайте плеер.Выберете персонажа из списка.";
-    descriptionCover.style.height = "310px";
-  //  descriptionBlock.innerHTML = "Послушайте плеер.<br>Выберете персонажа из списка."
+    descriptionCover.innerText = "Listen to the player. \nChoose a character from the list.";
+    descriptionCover.style.height = "290px";
   
   step = 5;
+
+  clearInterval(nextButtonToggle);
+  nextQuestion.classList.remove("next__question__press");
   })
+
+  
 
 
   // Description player
@@ -747,16 +769,19 @@ function restartGame() {
   playList = stages[stage].name;
   mixedPlaylist = Array.from(playList);
   heroPicture.style.backgroundImage = "url(assets/images/question.jpg)";
- // descriptionPicture.style.backgroundImage = "url(assets/images/question.jpg)";
+ 
   shuffle();
   contentQuestions();
   content();
   nextQuestion.setAttribute("disabled", true);
   heroName.textContent = "******";
-  descriptionCover.textContent = "Послушайте плеер.Выберете персонажа из списка.";
-  descriptionCover.style.height = "310px";
+  descriptionCover.innerText = "Listen to the player. \nChoose a character from the list.";
+  descriptionCover.style.height = "290px";
   
   step = 5;
+
+  clearInterval(nextButtonToggle);
+  nextQuestion.classList.remove("next__question__press");
 }
 
 playAgain.addEventListener("click", restartGame);
