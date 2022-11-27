@@ -9,7 +9,12 @@ const soundVoice = document.querySelector(".sound__voice");
 
 
 sbutton.addEventListener('click',function () {
-    video.muted = false;
+    if (video.muted === true) {
+        video.muted = false;
+      }
+      else if (video.muted === false) {
+        video.muted = true;
+      }
     soundVoice.classList.toggle("sound__voice__alarm");
 })
 
