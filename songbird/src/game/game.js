@@ -190,6 +190,8 @@ const stages = [
   const playerButton = document.querySelector(".player__button");
   const statusPlay = document.querySelector(".button__play");
   const statusPause = document.querySelector(".button__pause");
+  const playerVoice = document.querySelector(".player__voice");
+  const blockVoice = document.querySelector(".block__player__voice");
 
   let seekSlider = document.querySelector(".seek__slider");
   let curr_time = document.querySelector(".current-time");
@@ -312,11 +314,13 @@ const stages = [
         updateTimer = setInterval(seekUpdate, 1000);
         playerButton.classList.remove("button__play");
         playerButton.classList.add("button__pause");
+        playerVoice.classList.add("player__voice__alarm");
       
     
       } else if (isPlay === true) {
         audio.pause();
         isPlay = false;
+        playerVoice.classList.remove("player__voice__alarm");
     }
   }
 
@@ -441,11 +445,13 @@ const stages = [
       audio.pause();
       playerButton.classList.remove("button__pause");
       playerButton.classList.add("button__play");
+      playerVoice.classList.remove("player__voice__alarm");
       isPlay = false;
       audio.currentTime = 0;
 
       blockButton.classList.remove("button__pause");
       blockButton.classList.add("button__play");
+      blockVoice.classList.remove("block__voice__alarm");
 
       isGo = false;
 
@@ -499,6 +505,7 @@ const stages = [
 
           blockButton.classList.remove("button__pause");
           blockButton.classList.add("button__play");
+          blockVoice.classList.remove("block__voice__alarm");
 
           isGo = false;
           
@@ -543,6 +550,7 @@ const stages = [
           
           blockButton.classList.remove("button__pause");
           blockButton.classList.add("button__play");
+          blockVoice.classList.remove("block__voice__alarm");
 
           isGo = false;
 
@@ -604,6 +612,7 @@ const stages = [
 
     blockButton.classList.remove("button__pause");
     blockButton.classList.add("button__play");
+    blockVoice.classList.remove("block__voice__alarm");
 
 
     heroesContainer.childNodes.forEach(childNodes => {
@@ -660,6 +669,7 @@ const stages = [
       renewTimer = setInterval(seekBlockUpdate, 1000);
       blockButton.classList.remove("button__play");
       blockButton.classList.add("button__pause");
+      blockVoice.classList.add("block__voice__alarm");
     
   
     } else if (isGo === true) {
@@ -672,6 +682,7 @@ const stages = [
   blockButton.addEventListener("click", () => {
     blockButton.classList.toggle("button__play");
     blockButton.classList.toggle("button__pause");
+    blockVoice.classList.toggle("block__voice__alarm");
   })
 
   blockButton.addEventListener("click", goAudio);

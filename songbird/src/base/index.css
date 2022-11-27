@@ -46,8 +46,14 @@ html, body {
 }
 
 .nav__button {
-  width: 50px;
-  height: 30px;
+  font-family: "v_BadaBoom BB";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  width: 200px;
+  height: 40px;
+  background-color: orange;
+  cursor: pointer;
 }
 
 .main {
@@ -111,9 +117,40 @@ html, body {
   height: 100%;
 }
 
+.sound__box {
+  display: flex;
+  width: 140px;
+  height: 70px;
+  position: absolute;
+  bottom: 100px;
+  left: 45%;
+}
+
 .sound__button {
-  width: 50px;
-  height: 30px;
+  width: 70px;
+  height: 70px;
+  z-index: 100;
+  background-color: white;
+  border: none;
+  background-size: contain;
+  background-image: url("./../../assets/images/rupor-button.jpg");
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.sound__voice {
+  display: none;
+  width: 70px;
+  height: 70px;
+  background-size: 70%;
+  background-image: url("./../../assets/images/rupor-voice.jpg");
+  background-repeat: no-repeat;
+  background-position: top;
+  z-index: 1000;
+}
+
+.sound__voice__alarm {
+  display: flex;
 }
 
 .footer {
@@ -225,6 +262,18 @@ html, body {
     width: 180px;
   }
 
+  .nav__button {
+    font-family: "v_BadaBoom BB";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    width: 150px;
+    height: 40px;
+    background-color: orange;
+    cursor: pointer;
+    margin-left: 80px;
+  }
+
   .welcome {
     display: flex;
     flex-direction: column;
@@ -279,6 +328,41 @@ html, body {
     height: 20px;
   }
 
+  .sound__box {
+    display: flex;
+    width: 140px;
+    height: 70px;
+    position: absolute;
+    bottom: none;
+    top: 50%;
+    left: 25%;
+  }
   
+  .sound__button {
+    width: 40px;
+    height: 40px;
+    z-index: 100;
+    background-color: white;
+    border: none;
+    background-size: contain;
+    background-image: url("./../../assets/images/rupor-button.jpg");
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+  
+  .sound__voice {
+    display: none;
+    width: 40px;
+    height: 40px;
+    background-size: 70%;
+    background-image: url("./../../assets/images/rupor-voice.jpg");
+    background-repeat: no-repeat;
+    background-position: top;
+    z-index: 1000;
+  }
+
+  .sound__voice__alarm {
+    display: flex;
+  }
   
 }
