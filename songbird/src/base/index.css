@@ -1,6 +1,10 @@
 @font-face {
-  font-family: "v_BadaBoom BB";
-  src: url("./../../assets/fonts/comix.ttf") format('ttf');
+  font-family: 'BadaBoom BB';
+  font-style: normal;
+  font-weight: 400;
+  src: local('BadaBoom BB'), local('BadaBoomBB-Regular'),
+      url(https://allfont.net/cache/fonts/badaboom-bb_d25cfd5f1ad5928ae655d17683935866.woff) format('woff'),
+      url(https://allfont.net/cache/fonts/badaboom-bb_d25cfd5f1ad5928ae655d17683935866.ttf) format('truetype');
 }
 
 
@@ -46,9 +50,7 @@ html, body {
 }
 
 .nav__button {
-  font-family: "v_BadaBoom BB";
-  font-style: normal;
-  font-weight: normal;
+  font-family: "BadaBoom BB";
   font-size: 20px;
   width: 200px;
   height: 40px;
@@ -105,9 +107,7 @@ html, body {
 }
 
 .welcome__right {
-  font-family: "v_BadaBoom BB";
-  font-style: normal;
-  font-weight: normal;
+  font-family: "BadaBoom BB";
   font-size: 30px;
   display: flex;
   justify-content: center;
@@ -184,9 +184,11 @@ html, body {
 }
 
 .date__creation {
+  font-family: "BadaBoom BB";
   display: flex;
   justify-content: center;
   align-items: center;
+  letter-spacing: 1px;
   width: 33%;
   height: 100%;
   text-align: center;
@@ -219,6 +221,16 @@ html, body {
     align-items: center;
     height: 100%;
     width: 300px;
+  }
+
+  .nav__button {
+    font-family: "BadaBoom BB";
+    font-size: 20px;
+    width: 200px;
+    height: 40px;
+    background-color: orange;
+    cursor: pointer;
+    margin-left: 280px;
   }
 
   .welcome {
@@ -263,9 +275,7 @@ html, body {
   }
 
   .nav__button {
-    font-family: "v_BadaBoom BB";
-    font-style: normal;
-    font-weight: normal;
+    font-family: "BadaBoom BB";
     font-size: 20px;
     width: 150px;
     height: 40px;

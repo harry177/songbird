@@ -232,31 +232,6 @@ const stages = [
 
  
 
-
-  let inputContent = `<div class="description__header"> \
-  <div class="description__header__picture"></div> \
-  <div class="description__header__content"> \
-    <div class="description__header__content__name"></div> \
-    <div class="description__header__content__nickname"></div> \
-    <div class="description__header__content__player"> \
-      <button class="block__button button__play"></button> \
-      <div class="slider__container"> \
-        <div class="current-time__block">00:00</div> \
-        <input type="range" min="1" max="100"value="0" class="seek__block__slider"> \
-        <div class="total-duration__block">00:00</div> \
-      </div> \
-      <div class="slider__container"> \
-        <i class="fa-volume-down"></i> \
-        <input type="range" min="1" max="100" value="99" class="volume__slider__block"> \
-        <i class="fa-volume-up"></i> \
-      </div> \
-    </div> \
-  </div> \
-  </div> \
-  <div class="description__footer"></div>`;
-
-
-
   const blockButton = document.querySelector(".block__button");
 
 
@@ -325,7 +300,6 @@ const stages = [
   }
 
 
- 
 
   playerButton.addEventListener("click", playAudio);
 
@@ -336,7 +310,6 @@ const stages = [
     seekSlider.value = 0;
   }
 
-  
 
   seekSlider.onchange = function() {
     audio.currentTime = audio.duration * (seekSlider.value / 100);
@@ -347,7 +320,6 @@ const stages = [
   }
 
   
-
 
   function seekUpdate() {
     let seekPosition = 0;
@@ -396,8 +368,6 @@ const stages = [
 
   contentQuestions();
 
-
-  
   
 
   // Quiz
@@ -461,8 +431,8 @@ const stages = [
       
       
       descriptionPicture.style.backgroundImage = mixedPlaylist[playNum].picture;
-      descriptionName.innerHTML = mixedPlaylist[playNum].name;
-      descriptionNickname.innerHTML = mixedPlaylist[playNum].title;
+      descriptionName.innerHTML = mixedPlaylist[playNum].title;
+      descriptionNickname.innerHTML = mixedPlaylist[playNum].name;
       descriptionText.innerHTML = mixedPlaylist[playNum].description;
 
       blockAudio.src = mixedPlaylist[playNum].src;
@@ -511,8 +481,8 @@ const stages = [
           
 
           descriptionPicture.style.backgroundImage = mixedPlaylist[i].picture;
-          descriptionName.innerHTML = mixedPlaylist[i].name;
-          descriptionNickname.innerHTML = mixedPlaylist[i].title;
+          descriptionName.innerHTML = mixedPlaylist[i].title;
+          descriptionNickname.innerHTML = mixedPlaylist[i].name;
           descriptionText.innerHTML = mixedPlaylist[i].description;
           
           blockAudio.src = mixedPlaylist[i].src;
@@ -555,8 +525,8 @@ const stages = [
           isGo = false;
 
           descriptionPicture.style.backgroundImage = mixedPlaylist[i].picture;
-          descriptionName.innerHTML = mixedPlaylist[i].name;
-          descriptionNickname.innerHTML = mixedPlaylist[i].title;
+          descriptionName.innerHTML = mixedPlaylist[i].title;
+          descriptionNickname.innerHTML = mixedPlaylist[i].name;
           descriptionText.innerHTML = mixedPlaylist[i].description;
           
           blockAudio.src = mixedPlaylist[i].src;
@@ -641,7 +611,6 @@ const stages = [
 
   // Description player
 
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   let isGo = false;
 
@@ -707,7 +676,6 @@ const stages = [
 
   
 
-
   function seekBlockUpdate() {
     let seekBlockPosition = 0;
    
@@ -743,29 +711,32 @@ const stages = [
   } */
   
   
+
   // Showing results
 
 function showResults() {
 
   if (counter === 30) {
-    resultBeginning = `Поздравляем! Вы набрали максимальное количество баллов - ${counter}!`;
-    resultEnding = "Мультики - ваше призвание:)";
+    resultBeginning = `Congratulations! You have scored the maximum number of points - ${counter}!`;
+    resultEnding = "Cartoons - are your passion :)";
     resultsDesk.classList.add('show__results');
     shadowBody.classList.add('show__shadow');
   } else if (stage === 5 && finish === true) {
-    resultBeginning = `Вы дошли до конца! Ваш счет - ${counter} баллов!`;
-    resultEnding = "Не желаете попробавать снова?";
+    resultBeginning = `You have reached the end! Your score - ${counter} points!`;
+    resultEnding = "Wanna try again?";
     resultsDesk.classList.add('show__results');
     shadowBody.classList.add('show__shadow');
   } else {
-    resultBeginning = `Ваш текущий счет - ${counter} баллов!`;
-    resultEnding = "Попробуйте дойти до конца :)";
+    resultBeginning = `Your current score - ${counter} points!`;
+    resultEnding = "Try to reach the end :)";
   }
   
   resultsList.textContent = `${resultBeginning} ${resultEnding}`;
   
 }
 
+
+// Reastarting the game
 
 const playAgain = document.querySelector(".play__again");
 
@@ -797,7 +768,3 @@ function restartGame() {
 
 playAgain.addEventListener("click", restartGame);
 
-  
-
-
-  
