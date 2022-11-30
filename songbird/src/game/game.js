@@ -446,6 +446,8 @@ const stages = [
 
       nextQuestion.removeAttribute("disabled");
 
+      clearInterval(nextButtonToggle);
+
        nextButtonToggle = setInterval(function() {
         nextQuestion.classList.toggle("next__question__press");}, 500)
         
