@@ -598,7 +598,7 @@ const stages = [
     contentQuestions();
     
     descriptionCover.innerText = "Listen to the player. \nChoose a character from the list.";
-    descriptionCover.style.height = "290px";
+    descriptionCover.style.height = "315px";
   
   step = 5;
 
@@ -758,7 +758,7 @@ function restartGame() {
   nextQuestion.setAttribute("disabled", true);
   heroName.textContent = "******";
   descriptionCover.innerText = "Listen to the player. \nChoose a character from the list.";
-  descriptionCover.style.height = "290px";
+  descriptionCover.style.height = "315px";
   
   step = 5;
 

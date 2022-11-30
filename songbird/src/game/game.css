@@ -380,7 +380,7 @@ html, body {
   font-size: 30px;
   line-height: 45px;
   width: 600px;
-  height: 290px;
+  height: 315px;
   position: absolute;
   z-index: 90;
   background-color: white;
@@ -510,6 +510,7 @@ html, body {
 }
 
 .description__footer {
+  display: inline-block;
   font-family: "BadaBoom BB";
   font-style: normal;
   font-weight: normal;
@@ -520,6 +521,7 @@ html, body {
   width: 100%;
   height: 30%;
   border: black 1px solid;
+  overflow: hidden;
 }
 
 .next__question {
@@ -624,13 +626,13 @@ html, body {
   .results__desk {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     text-align: center;
     width: 300px;
     height: 300px;
     position: absolute;
-    background-color: white;
+    background-color: orange;
     z-index: 1000;
     border: 4px black solid;
     transition: ease-in-out 0.5s;
@@ -645,7 +647,7 @@ html, body {
 
   .description-cover {
     width: 370px;
-    height: 290px;
+    height: 315px;
     position: absolute;
     z-index: 90;
     background-color: white;
@@ -695,13 +697,13 @@ html, body {
   .results__desk {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     text-align: center;
     width: 300px;
     height: 300px;
     position: absolute;
-    background-color: white;
+    background-color: orange;
     z-index: 1000;
     border: 4px black solid;
     transition: ease-in-out 0.5s;
@@ -898,8 +900,8 @@ html, body {
   }
 
   .description-cover {
-    width: 172px;
-    height: 270px;
+    width: 175px;
+    height: 315px;
     position: absolute;
     z-index: 90;
     background-color: white;
