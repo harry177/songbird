@@ -510,6 +510,11 @@ html, body {
 }
 
 .description__footer {
+  font-family: "BadaBoom BB";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  letter-spacing: 1px;
   display: flex;
   justify-content: space-between;
   width: 100%;
