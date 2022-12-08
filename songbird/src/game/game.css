@@ -7,8 +7,6 @@
       url(https://allfont.net/cache/fonts/badaboom-bb_d25cfd5f1ad5928ae655d17683935866.ttf) format('truetype');
 }
 
-
-
 html, body {
   width: 100%;
   height: 100%;
@@ -347,6 +345,7 @@ html, body {
   width: 100%;
   height: 16.66%;
   border: black 1px solid;
+  text-decoration: none;
 }
 
 .variant__true {
@@ -858,6 +857,8 @@ html, body {
     width: 100%;
     height: 15%;
     border: black 1px solid;
+    overflow: hidden;
+    position: fixed;
   }
 
   .description__header__picture {

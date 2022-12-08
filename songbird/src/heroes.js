@@ -121,7 +121,7 @@
       description: "Barney is the Springfield town drunk who often works as human guinea pig for medical research facilities. He is Homer Simpson's best friend, although to a lesser extent after high school."
     },
     {
-      name: "Барт Симпсон>",
+      name: "Барт Симпсон",
       title: "Bart Simpson",
       src: "assets/sounds/bart-simpson.mp3",
       duration: "00:01",
