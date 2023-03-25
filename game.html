@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script defer src="game.js"></script></head>
+<body>
+  <div class="shadow__body"></div>
+  <div class="results__desk">
+    <div class="results__list"></div>
+    <button class="play__again">Play again</button>
+  </div>
+  <div class="wrapper">
+    <header class="header">
+      <div class="logo__block"></div>
+      <div class="nav__block">
+      <a href="./index.html">
+        <button class="nav__button">Main menu</button>
+      </a>
+      <button class="results__button">Results</button>
+      </div>
+      <div class="results__block">
+        <div class="results__block__count">Count:</div>
+        <div class="results__block__score"></div>
+      </div>
+    </header>
+    <main class="main">
+      <section class="questions">
+        <div class="stage"></div>
+        <div class="stage"></div>
+        <div class="stage"></div>
+        <div class="stage"></div>
+        <div class="stage"></div>
+        <div class="stage"></div>
+      </section>
+      <section class="current__question">
+        <div class="hero__picture"></div>
+        <div class="hero__guess">
+          <div class="hero__name"></div>
+          <div class="player">
+            <div class="player__box">
+              <button class="player__button button__play"></button>
+              <div class="player__voice"></div>
+            </div>
+            <div class="slider__container">
+              <div class="current-time">00:00</div>
+              <input type="range" min="1" max="100"value="0" class="seek__slider">
+              <div class="total-duration">00:00</div>
+            </div>
+            <div class="slider__container">
+              <input type="range" min="1" max="100" value="99" class="volume__slider">
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="game">
+        <div class="answers"></div>
+        <div class="description">
+          <div class="description-cover">Listen to the player. <br>Choose a character from the list. </div>
+            <div class="description__container">
+          <div class="description__header">
+            <div class="description__header__picture"></div>
+            <div class="description__header__content">
+              <div class="description__header__content__name"></div>
+              <div class="description__header__content__nickname"></div>
+              <div class="description__header__content__player">
+                <div class="block__player__box">
+                  <button class="block__button button__play"></button>
+                  <div class="block__player__voice"></div>
+                </div>
+                <div class="slider__container">
+                  <div class="current-time__block">00:00</div>
+                  <input type="range" min="1" max="100"value="0" class="seek__block__slider">
+                  <div class="total-duration__block">00:00</div>
+                </div>
+                <div class="slider_container">
+                  <i class="fa-volume-down"></i>
+                  <input type="range" min="1" max="100" value="99" class="volume__slider__block">
+                  <i class="fa-volume-up"></i>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="description__footer"></div>
+            </div>
+        </div>
+      </section>
+      <button class="next__question">NEXT</button>
+    </main>
+    <footer class="footer">
+      <div class="footer__container">
+        <a href="https://rs.school/js/" class="link">
+          <div class="rss__logo"></div>
+        </a>
+        <div class="date__creation">Created by Artem Prygunov 2022</div>
+        <a href="https://github.com/harry177" class="link">
+          <div class="github__link"></div>
+        </a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
